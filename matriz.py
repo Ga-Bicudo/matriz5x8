@@ -11,7 +11,7 @@ for l in range(linhas):
     matriz.append(i)    
 
 for x in matriz:    
-    print(matriz[2])                 
+    print(x)                 
 
 '''def cria_blocos(altura: int, largura: int):
     largura = input("insira a altura do bloco(de 0 a 8")
