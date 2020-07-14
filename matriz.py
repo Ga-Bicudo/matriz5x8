@@ -18,11 +18,13 @@ altura = int(input("insira a largura do bloco:"))
 if altura > linhas or largura > colunas:
     print("bloco inválido")
 else:
-    for altura in(linhas):
-        for largura in(colunas):    
-            matriz[altura][largura] = 'x'
-    for x in matriz:
-        print(x)    
+    for d in range(altura):
+        for z in range(largura):    
+            matriz[d][z] = 'x'
+
+
+for x in matriz:
+    print(x)    
                      
 
                     
