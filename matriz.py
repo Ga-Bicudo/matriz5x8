@@ -9,7 +9,7 @@ for l in range(linhas):
         i = []
         for c in range(colunas):
             i.append('0')
-        matriz.append(i)    
+        matriz.append(i)
 
 blocks = []  #lista criada para guardar os blocos
 area_blocos = 0
@@ -25,15 +25,6 @@ for blocos in range(0,area_matriz >= area_blocos): #metodo para checar se os blo
         for x in (blocks):
             print(x)
             
-    
- 
-   
-    """elif():
-        for d in range(altura):
-            for z in range(largura):    
-                matriz[d][z] = 'x'"""
-
-
 for x in matriz:
     print(x)    
 
