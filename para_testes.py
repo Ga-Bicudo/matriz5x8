@@ -1,8 +1,8 @@
-atriz = [ ]
+matriz = [ ]
 
 linhas = int(input("escolha quantas linhas tera a matriz:"))
-colunas = int(input("escolha quantas colunas tera a matriz:"))
-area_matriz = linhas * colunas
+colunas = int(input("escolha quantas colunas tera a matriz:"))                  #tentativa de fazer uma matriz secundaria para calcular quantos blocos precisa para fechar o principal
+area_matriz = linhas * colunas #não vou fazer matriz so pega os tamanhos
 for l in range(linhas):
         i = []
         for c in range(colunas):
@@ -10,18 +10,34 @@ for l in range(linhas):
         matriz.append(i)
 
 num_ran = 1
-for encaixes in range(area_matriz):
-    largura = int(input("insira a altura do bloco:"))
-    altura = int(input("insira a largura do bloco:"))     
+resposta = "sim"
+matriz_aux = []
+while(resposta == 'sim'):
+    altura = int(input("insira a largura do bloco:"))
+    largura = int(input("insira a altura do bloco:"))      
     for x in range(altura): # inseri o x que seria relacionado ao primeiro bloco
+        i = []
         for y in range(largura):
+            i.append('x')
             matriz[x][y] = num_ran
     num_ran = num_ran + 1    
     for x in(matriz):
         print(x)
 
    
-
+"""num_ran = 1
+resposta = "sim"
+while(resposta == 'sim'):
+    matriz = []
+    altura = int(input("insira a largura do bloco:"))
+    largura = int(input("insira a altura do bloco:"))      
+    for x in range(altura): # inseri o x que seria relacionado ao primeiro bloco
+        i = []
+        for y in range(largura):
+            i.append(num_ran)
+    num_ran = num_ran + 1    
+    for x in(matriz):
+        print(x)"""
 
 
 
