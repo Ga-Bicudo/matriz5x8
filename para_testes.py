@@ -13,12 +13,12 @@ for l in range(linhas):
 
 def print_matriz(matriz_desejada):
     for z in(matriz_desejada):
-        print(z)
+        print(z)    
 
 r = 0
 am = 1 
 num_ran = 1
-num_bloco = 1
+num_bloco = 0
 
 while(r != am ): #enquanto tiver espaço sem bloco na matriz r() sera diferente de am(0) 
     for h in matriz: #loop de validação a cada bloco que será criado
@@ -29,21 +29,26 @@ while(r != am ): #enquanto tiver espaço sem bloco na matriz r() sera diferente 
             largura = int(input("insira a altura do bloco:")) 
             #bloco foi criado
             blocos = []
-            blocos.append({'nº bloco': num_bloco, altura: altura, largura: largura})#entender este erro
-            num_bloco += 1
-            print(blocos[0['nº bloco']])
+            blocos.append({'nº bloco': (num_bloco + 1), 'altura bloco': altura, 'largura bloco': largura})#entender este erro
+            bloco = blocos[num_bloco]
+            num_bloco += 1    
+            print("bloco numero: {} ".format(bloco['nº bloco']))
             #lista blocos criadas, e os objetos blocos sendo instanciados, a cada loop por meio de um dicionario, em cada indice da lista adcionado
-            if blocos[0] == 1:# se for o primeiro bloco, a posição será aleatória
+            if bloco['nº bloco'] == 1:# se for o primeiro bloco, a posição será aleatória
                 l_p = linhas - altura
                 c_p = colunas - largura
                 l_i = random.randrange(0,(l_p + 1))
                 c_i = random.randrange(0,(c_p + 1))
                 for d in range(altura):
+
                     for f in range(largura):
-                        matriz[l_i][c_p] = num_ran
-                        c_p += 1
+                        f = c_i
+                        matriz[l_i][c_i] = num_ran
+                        c_i += 1
                     l_i += 1
-                print_matriz(matriz)        
+                    c_i = c_i - largura
+                print_matriz(matriz)
+                num_ran += 1        
             else:        
                 for x in range(altura): # inseri o x que seria relacionado ao primeiro bloco                 
                     for y in range(largura): 
