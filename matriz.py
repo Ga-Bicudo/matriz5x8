@@ -22,6 +22,7 @@ while(resposta == 'sim'):
     num_ran = num_ran + 1    
     for x in(matriz):
         print(x)
+    print(matriz)    
 
 
                      
