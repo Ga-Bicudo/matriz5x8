@@ -33,6 +33,8 @@ while(r != am ): #enquanto tiver espaço sem bloco na matriz r() sera diferente 
             bloco = blocos[num_bloco]
             num_bloco += 1    
             print("bloco numero: {} ".format(bloco['nº bloco']))
+            cord_x = []
+            cord_y = []
             #lista blocos criadas, e os objetos blocos sendo instanciados, a cada loop por meio de um dicionario, em cada indice da lista adcionado
             if bloco['nº bloco'] == 1:# se for o primeiro bloco, a posição será aleatória
                 l_p = linhas - altura
@@ -40,21 +42,46 @@ while(r != am ): #enquanto tiver espaço sem bloco na matriz r() sera diferente 
                 l_i = random.randrange(0,(l_p + 1))
                 c_i = random.randrange(0,(c_p + 1))
                 for d in range(altura):
-
+                    x = l_i
+                    cord_x.append(x)
                     for f in range(largura):
-                        f = c_i
+                        y = c_i
+                        cord_y.append(y)
                         matriz[l_i][c_i] = num_ran
                         c_i += 1
                     l_i += 1
                     c_i = c_i - largura
+                #c_i = c_i + largura
                 print_matriz(matriz)
+                #print(l_i,c_i,y)
                 num_ran += 1        
             else:        
-                for x in range(altura): # inseri o x que seria relacionado ao primeiro bloco                 
-                    for y in range(largura): 
-                        matriz[x][y] = num_ran           
-                num_ran = num_ran + 1
-                print_matriz(matriz)                
+                diferença = linhas - l_i
+                diferença_coluna = colunas - c_i
+                if altura > diferença or colunas > diferença_coluna:
+                    for p in range(diferença):
+                        for k in range(diferença_coluna):
+                            c_i += 1
+                        l_i += 1 
+                    while l_i >linhas:
+                        if altura > diferença: 
+                            l_i = y + 1
+                            c_i = l_i
+                        if colunas > diferença_coluna:
+                            l_i = x + 1
+                            c_i = l_i
+                        try:
+                            for m in range(altura):                 
+                                for n in range(largura): 
+                                    matriz[l_i][c_i] = num_ran
+                                    y = c_i 
+                                    c_i += 1
+                                l_i += 1
+                                c_i = c_i - largura          
+                            num_ran = num_ran + 1
+                            print_matriz(matriz) 
+                        except:
+                            print("bloco não cabe em nenhum lugar da matriz")                               
         else:
             am = 0 #significa que não há mais espaço na matriz
             

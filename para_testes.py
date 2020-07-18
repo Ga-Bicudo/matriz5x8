@@ -1,3 +1,4 @@
+from matriz import cord_x, cord_y
 import random
 
 matriz = [ ]
@@ -11,14 +12,26 @@ for l in range(linhas):
         i.append(0)
     matriz.append(i)
 
+
 def print_matriz(matriz_desejada):
     for z in(matriz_desejada):
         print(z)    
 
+def cria_matriz(x,y,nome_matriz):
+   for l in range(x):
+        for c in range(y):
+            cord = [x,y]
+            nome_matriz.append(cord)
+            return(nome_matriz)
+
+
+cord_x = []
+cord_y = []
 r = 0
 am = 1 
 num_ran = 1
 num_bloco = 0
+cord_usadas = [] # vai ser amezenado x, y 
 
 while(r != am ): #enquanto tiver espaço sem bloco na matriz r() sera diferente de am(0) 
     for h in matriz: #loop de validação a cada bloco que será criado
@@ -29,7 +42,7 @@ while(r != am ): #enquanto tiver espaço sem bloco na matriz r() sera diferente 
             largura = int(input("insira a altura do bloco:")) 
             #bloco foi criado
             blocos = []
-            blocos.append({'nº bloco': (num_bloco + 1), 'altura bloco': altura, 'largura bloco': largura})#entender este erro
+            blocos.append({'nº bloco': (num_bloco + 1), 'altura bloco': altura, 'largura bloco': largura, 'cord_usadas':cord_usadas })#entender este erro
             bloco = blocos[num_bloco]
             num_bloco += 1    
             print("bloco numero: {} ".format(bloco['nº bloco']))
@@ -40,21 +53,66 @@ while(r != am ): #enquanto tiver espaço sem bloco na matriz r() sera diferente 
                 l_i = random.randrange(0,(l_p + 1))
                 c_i = random.randrange(0,(c_p + 1))
                 for d in range(altura):
-
+                    x = l_i
+                    cord_x.append(x)
                     for f in range(largura):
-                        f = c_i
                         matriz[l_i][c_i] = num_ran
+                        y = c_i
+                        cord_y.append(y)
                         c_i += 1
                     l_i += 1
                     c_i = c_i - largura
+                if l_i == linhas: #caso o bloco fique no fundo da matriz vamos resetar para o começo
+                    l_i = 0 
+                    c_i = 0
+                #c_i = c_i + largura
                 print_matriz(matriz)
+                #print(l_i,c_i,y)
                 num_ran += 1        
             else:        
-                for x in range(altura): # inseri o x que seria relacionado ao primeiro bloco                 
-                    for y in range(largura): 
-                        matriz[x][y] = num_ran           
-                num_ran = num_ran + 1
-                print_matriz(matriz)                
+                diferença = linhas - l_i
+                diferença_coluna = colunas - c_i
+                if altura > diferença or colunas > diferença_coluna:
+                    for p in range(diferença):
+                        for k in range(diferença_coluna):
+                            c_i += 1
+                        l_i += 1 
+                        c_i = c_i - diferença_coluna
+                    while l_i >linhas:
+                        if altura > diferença: 
+                            l_i = y + 1
+                            c_i = l_i
+                        if colunas > diferença_coluna:
+                            l_i = x + 1
+                            c_i = l_i
+                        #if altura > diferença and colunas > diferença_coluna:
+
+                        try:
+                            for m in range(altura):                 
+                                for n in range(largura): 
+                                    matriz[l_i][c_i] = num_ran
+                                    cord_usadas = l_i,c_i
+                                    y = c_i 
+                                    c_i += 1
+                                l_i += 1
+                                c_i = c_i - largura          
+                            num_ran = num_ran + 1
+                            print_matriz(matriz) 
+                        except:
+                            print("bloco não cabe em nenhum lugar da matriz")          
+                else:
+                    for d in range(altura):
+                        x = l_i
+                        cord_x.append(x)
+                        for f in range(largura):
+                            y = c_i
+                            cord_y.append(y)
+                            if matriz[l_i][c_i] > 1:
+                                l_i =                      #continuar daqui
+                            matriz[l_i][c_i] = num_ran
+                            c_i += 1
+                        l_i += 1
+                        c_i = c_i - largura 
         else:
             am = 0 #significa que não há mais espaço na matriz
             
