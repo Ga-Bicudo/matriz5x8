@@ -3,8 +3,8 @@ import random
 matriz = [ ]
 
 linhas = int(input("escolha quantas linhas tera a matriz:"))
-colunas = int(input("escolha quantas colunas tera a matriz:"))                  #tentativa de fazer uma matriz secundaria para calcular quantos blocos precisa para fechar o principal
-area_matriz = linhas * colunas #não vou fazer matriz so pega os tamanhos
+colunas = int(input("escolha quantas colunas tera a matriz:"))                 
+area_matriz = linhas * colunas
 for l in range(linhas):
     i = []
     for c in range(colunas):
@@ -15,10 +15,15 @@ def print_matriz(matriz_desejada):
     for z in(matriz_desejada):
         print(z)    
 
-r = 0
-am = 1 
-num_ran = 1
-num_bloco = 0
+r = 0  #chave para o loop principal
+am = 1 #chave para o loop principal, se for validado, ficara com valor de r, acabará a inserção de blocos e finaliza o programa
+num_ran = 1 #numero que servirá de imagem na amtriz para os quadrados iseridos
+num_bloco = 0 #identificação do bloco inserido que ssempre será igual o num_ram
+blocos = [] #lista para armazenar os blocos
+cord_x = [] #lista para armezenar os indices utilizados para a largura 
+cord_y = [] #lista para armezenar os indices utilizados para a altura 
+indices_usados_x = []
+indices_usados_y = []
 
 while(r != am ): #enquanto tiver espaço sem bloco na matriz r() sera diferente de am(0) 
     for h in matriz: #loop de validação a cada bloco que será criado
@@ -28,60 +33,53 @@ while(r != am ): #enquanto tiver espaço sem bloco na matriz r() sera diferente 
             altura = int(input("insira a largura do bloco:"))
             largura = int(input("insira a altura do bloco:")) 
             #bloco foi criado
-            blocos = []
             blocos.append({'nº bloco': (num_bloco + 1), 'altura bloco': altura, 'largura bloco': largura})#entender este erro
-            bloco = blocos[num_bloco]
-            num_bloco += 1    
+            print('blocos usados: \n {}'.format(blocos))
+            bloco = blocos[num_bloco]  
             print("bloco numero: {} ".format(bloco['nº bloco']))
-            cord_x = []
-            cord_y = []
             #lista blocos criadas, e os objetos blocos sendo instanciados, a cada loop por meio de um dicionario, em cada indice da lista adcionado
             if bloco['nº bloco'] == 1:# se for o primeiro bloco, a posição será aleatória
                 l_p = linhas - altura
                 c_p = colunas - largura
                 l_i = random.randrange(0,(l_p + 1))
                 c_i = random.randrange(0,(c_p + 1))
-                for d in range(altura):
-                    x = l_i
-                    cord_x.append(x)
+                for d in range(altura): #inserindo bloco na matriz
+                    indices_usados_y.append(l_i)
+                    y = l_i  
                     for f in range(largura):
-                        y = c_i
-                        cord_y.append(y)
+                        indices_usados_x.append(c_i)
                         matriz[l_i][c_i] = num_ran
                         c_i += 1
+                        x = c_i
                     l_i += 1
-                    c_i = c_i - largura
-                #c_i = c_i + largura
-                print_matriz(matriz)
-                #print(l_i,c_i,y)
-                num_ran += 1        
+                    c_i = c_i - largura #fazendo com o que o c_i retorne ao local que ele iniciou no loop
+                cord_y.append(y) #armazenando o local y que o leitor da matriz parou depois de inserir este bloco
+                cord_x.append(x) #armazenando o local x que o leitor da matriz parou depois de inserir este bloco
+                print_matriz(matriz) 
+                print(x,y, "\n",c_i,l_i)       
             else:        
                 diferença = linhas - l_i
                 diferença_coluna = colunas - c_i
-                if altura > diferença or colunas > diferença_coluna:
-                    for p in range(diferença):
-                        for k in range(diferença_coluna):
+                if altura <= diferença or colunas <= diferença_coluna: #caso o cubo inserido possa ser encaixado na matriz de acordo com a posicão do x e y:
+                    for d in range(altura):
+                        indices_usados_y.append(y)
+                        y = l_i 
+                        for f in range(largura):
+                            indices_usados_x.append(x)
+                            matriz[l_i][c_i] = num_ran
                             c_i += 1
-                        l_i += 1 
-                    while l_i >linhas:
-                        if altura > diferença: 
-                            l_i = y + 1
-                            c_i = l_i
-                        if colunas > diferença_coluna:
-                            l_i = x + 1
-                            c_i = l_i
-                        try:
-                            for m in range(altura):                 
-                                for n in range(largura): 
-                                    matriz[l_i][c_i] = num_ran
-                                    y = c_i 
-                                    c_i += 1
-                                l_i += 1
-                                c_i = c_i - largura          
-                            num_ran = num_ran + 1
-                            print_matriz(matriz) 
-                        except:
-                            print("bloco não cabe em nenhum lugar da matriz")                               
+                            x = c_i
+                        l_i += 1
+                        c_i = c_i - largura #fazendo com o que o c_i retorne ao local que ele iniciou no loop
+                    cord_y.append(y) #armazenando o local y que o leitor da matriz parou depois de inserir este bloco
+                    cord_x.append(x) #armazenando o local x que o leitor da matriz parou depois de inserir este bloco
+                    print_matriz(matriz)    
+                else:#caso o cubo inserido não possa ser encaixado na matriz de acordo com a posicão do x e y:    
+                    if altura > diferença or if colunas > diferença_coluna : 
+                        c_i = 0   #recomeçando a leitura da matriz para achar um lugar onde possa por o cubo sem sobrepor os outros
+                        l_i = 0
+            num_ran += 1
+            num_bloco += 1  
+                           
         else:
             am = 0 #significa que não há mais espaço na matriz
-            
