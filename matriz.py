@@ -1,7 +1,7 @@
 import random
                                                                  
 matriz = [ ]
-Print("o código ainda esta incompleto, porem o programa roda , mas com alguns bugs, o outro arquivo contem todos os testes e tudo que fiz nele \n Alem disso falta adicionar alguns comentários")
+Print("Eu pensava que sim, mas não consegui finalizar a tempo, a lógica esta sendo mais complexa que eu imaginava. \n\nO código ainda esta incompleto, porem o programa roda , mas com alguns bugs, o outro arquivo contem todos os testes e tudo que fiz nele \n Alem disso falta adicionar alguns comentários")
 linhas = int(input("escolha quantas linhas tera a matriz:"))
 colunas = int(input("escolha quantas colunas tera a matriz:"))                 
 area_matriz = linhas * colunas
