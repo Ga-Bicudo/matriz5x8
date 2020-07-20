@@ -7,79 +7,130 @@ colunas = int(input("escolha quantas colunas tera a matriz:"))
 area_matriz = linhas * colunas
 for l in range(linhas):
     i = []
-    for c in range(colunas):
+    for c in range(colunas):                                
         i.append(0)
     matriz.append(i)
+#Criação da matriz 
 
-def print_matriz(matriz_desejada):
+
+def print_matriz(matriz_desejada):                    
     for z in(matriz_desejada):
         print(z)    
+#método criado para imprimir a Matriz bonitinha
 
-r = 0  #chave para o loop principal
-am = 1 #chave para o loop principal, se for validado, ficara com valor de r, acabará a inserção de blocos e finaliza o programa
-num_ran = 1 #numero que servirá de imagem na amtriz para os quadrados iseridos
-num_bloco = 0 #identificação do bloco inserido que ssempre será igual o num_ram
-blocos = [] #lista para armazenar os blocos
-cord_x = [] #lista para armezenar os indices utilizados para a largura 
-cord_y = [] #lista para armezenar os indices utilizados para a altura 
-indices_usados_x = []
-indices_usados_y = []
 
-while(r != am ): #enquanto tiver espaço sem bloco na matriz r() sera diferente de am(0) 
-    for h in matriz: #loop de validação a cada bloco que será criado
-        teste = 0 not in h  #verifica se ainda tem algum espaço na matriz sem bloco
-        if teste == False: #significa que ainda tem 0  
-             #começa a criação de blocos 
+r = 0                                              
+am = 1
+#chaves para o loop principal não parar
+                                                                                     
+num_bloco = 1 
+#contadores de repetições
+
+blocos = []
+#lista criada para armazenar os blocos que serão inseridos no loop                                       
+
+while(r != am ):
+#loop responsável pela criação dos blocos, inserção deles na matriz e validações                                  
+    
+    for h in matriz:                                    
+        teste = 0 not in h
+    #verificando se ha espaço na matriz
+
+        if teste == False:                                   
+        #significa que ainda tem espaço na matriz  
+
             altura = int(input("insira a largura do bloco:"))
             largura = int(input("insira a altura do bloco:")) 
             #bloco foi criado
-            blocos.append({'nº bloco': (num_bloco + 1), 'altura bloco': altura, 'largura bloco': largura})#entender este erro
-            print('blocos usados: \n {}'.format(blocos))
-            bloco = blocos[num_bloco]  
-            print("bloco numero: {} ".format(bloco['nº bloco']))
-            #lista blocos criadas, e os objetos blocos sendo instanciados, a cada loop por meio de um dicionario, em cada indice da lista adcionado
-            if bloco['nº bloco'] == 1:# se for o primeiro bloco, a posição será aleatória
-                l_p = linhas - altura
-                c_p = colunas - largura
-                l_i = random.randrange(0,(l_p + 1))
-                c_i = random.randrange(0,(c_p + 1))
-                for d in range(altura): #inserindo bloco na matriz
-                    indices_usados_y.append(l_i)
-                    y = l_i  
-                    for f in range(largura):
-                        indices_usados_x.append(c_i)
-                        matriz[l_i][c_i] = num_ran
-                        c_i += 1
-                        x = c_i
-                    l_i += 1
-                    c_i = c_i - largura #fazendo com o que o c_i retorne ao local que ele iniciou no loop
-                cord_y.append(y) #armazenando o local y que o leitor da matriz parou depois de inserir este bloco
-                cord_x.append(x) #armazenando o local x que o leitor da matriz parou depois de inserir este bloco
-                print_matriz(matriz) 
-                print(x,y, "\n",c_i,l_i)       
-            else:        
-                diferença = linhas - l_i
-                diferença_coluna = colunas - c_i
-                if altura <= diferença or colunas <= diferença_coluna: #caso o cubo inserido possa ser encaixado na matriz de acordo com a posicão do x e y:
+
+            blocos.append({'nº bloco': (num_bloco), 'altura bloco': altura, 'largura bloco': largura})  
+            #bloco instanciado na lista blocos 
+            
+            l_a = linhas - altura
+            c_l = colunas - largura
+                   
+                   
+            if l_a >= 0 and c_l >= 0:
+            #verifica se o bloco criado entra na matriz 
+    
+                def verifica_espaço(indicex,indicey,altura,largura):#precisa consertar esta função
+                    validação = []
                     for d in range(altura):
-                        indices_usados_y.append(y)
-                        y = l_i 
-                        for f in range(largura):
-                            indices_usados_x.append(x)
-                            matriz[l_i][c_i] = num_ran
-                            c_i += 1
-                            x = c_i
-                        l_i += 1
-                        c_i = c_i - largura #fazendo com o que o c_i retorne ao local que ele iniciou no loop
-                    cord_y.append(y) #armazenando o local y que o leitor da matriz parou depois de inserir este bloco
-                    cord_x.append(x) #armazenando o local x que o leitor da matriz parou depois de inserir este bloco
-                    print_matriz(matriz)    
-                else:#caso o cubo inserido não possa ser encaixado na matriz de acordo com a posicão do x e y:    
-                    if altura > diferença or if colunas > diferença_coluna : 
-                        c_i = 0   #recomeçando a leitura da matriz para achar um lugar onde possa por o cubo sem sobrepor os outros
-                        l_i = 0
-            num_ran += 1
-            num_bloco += 1  
-                           
+                        for f in range(largura):          
+                            if matriz[indicey][indicex] == 0:
+                                indicex += 1        
+                            else:
+                                validação.append(1)
+                        indicey += 1
+                        indicex = indicex - largura
+                         #verifica se tem espaço sobrando na matriz        
+                    if 1 in validação:
+                        return(False)
+                    else:
+                        return(True)
+
+                def marca_espaço(x,y,altura,largura):
+                        for d in range(altura):
+                            for f in range(largura):
+                                matriz[y][x] = num_bloco
+                                x += 1
+                            y += 1
+                            x = x - largura 
+                #encaixa o bloco na matriz
+
+
+                y = random.randrange(0,(l_a + 1))
+                x = random.randrange(0,(c_l + 1))
+                #randomizar o ponto de partida do marca_matriz
+
+                
+                if y + altura > linhas or x + largura > colunas:  
+                # verifica se ao fazer o verifica espaço n da erro.
+
+                    while y + altura > linhas or x + largura > colunas:
+                        y = random.randrange(0,(l_a + 1))
+                        x = random.randrange(0,(c_l + 1))
+                        #fica em loop ate o x e y caberem na matriz
+                
+
+                
+                
+    
+                if verifica_espaço(x,y,altura,largura) == True:
+                    marca_espaço(x,y,altura,largura)
+                    #encaixa o quadrado na matriz se tudo estiver certo
+                
+
+
+                
+                else:
+                # caso a varificação veja q n da para encaixar
+
+                    area_verificada = 0
+                    while verifica_espaço(x,y,altura,largura) == False:
+                        y += 1
+                        area_verificada += 1 
+                        if y + altura > linhas :  
+                            x += 1   
+                            y = 0
+                        
+                        if x + largura > colunas:
+                            x = 0
+                            y = 0
+                        #verifica todos os indices da matriz se em algum é possivel encaixar o cubo        
+
+                        if area_verificada == area_matriz + 1:
+                            print("não ha espaço sufieciente para o bloco desejado, crie outro por favor")    
+                        #se ele verificar 
+                        else:
+                            marca_espaço(x,y,altura,largura)
+
+                num_bloco += 1        
+                print_matriz(matriz)
+
+            else:
+                print('Bloco maior que á matriz, por favor crie outro')  
+
         else:
-            am = 0 #significa que não há mais espaço na matriz
+            am = 0 
+        #significa que não há mais espaço na matriz
