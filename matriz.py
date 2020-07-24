@@ -59,11 +59,9 @@ while(r != am ):
                 def verifica_espaço(indicex,indicey,altura,largura):#precisa consertar esta função
                     validação = []
                     for d in range(altura):
-                        print('y:',y)
                         for f in range(largura):          
                             if matriz[indicey][indicex] == 0:
                                 indicex += 1 
-                                print('x:',x)       
                             else:
                                 validação.append(1)
                                 break
@@ -118,6 +116,7 @@ while(r != am ):
                         y += 1
                         if area_verificada == area_matriz + 1:
                             print("não ha espaço sufieciente para o bloco desejado, crie outro por favor")
+                            area_verificada = False
                             break
                         #se ele verificar     
 
@@ -130,11 +129,12 @@ while(r != am ):
                             else:
                                 continue
                         else:
-                            continue
-                        #verifica todos os indices da matriz se em algum é possivel encaixar o cubo        
+                            area_verificada = True
+                        #verifica todos os indices da matriz se em algum é possivel encaixar o cubo  
+                                                          
+                    if area_verificada == True:
+                        marca_espaço(x,y,altura,largura)
 
-                            
-                    marca_espaço(x,y,altura,largura)        
 
                 num_bloco += 1        
                 print_matriz(matriz)
