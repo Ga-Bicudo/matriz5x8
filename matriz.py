@@ -22,7 +22,7 @@ def print_matriz(matriz_desejada):
 r = 0                                              
 am = 1
 espaco = []
-#chaves para o loop principal não parar
+#chaves para o loop principal não parar enquanto tiver espaço na matriz
                                                                                      
 num_bloco = 1 
 #contadores de repetições
@@ -33,13 +33,13 @@ blocos = []
 while(r != am ):
 #loop responsável pela criação dos blocos, inserção deles na matriz e validações                                  
     
-    for h in matriz:                                    
-        espaco.append(h)
-        teste = 0 not in espaco
-
+    for h in matriz:
+        for j in h:                                                   
+            espaco.append(j)
+    teste = 0 not in espaco      
     #verificando se ha espaço na matriz
 
-        if teste == False:                                   
+    if teste == False:                                   
         #significa que ainda tem espaço na matriz  
 
             altura = int(input("insira a largura do bloco:"))
@@ -138,10 +138,11 @@ while(r != am ):
 
                 num_bloco += 1        
                 print_matriz(matriz)
+                espaco = []
 
             else:
                 print('Bloco maior que á matriz, por favor crie outro')  
 
-        else:
+    else:
             am = 0 
         #significa que não há mais espaço na matriz
